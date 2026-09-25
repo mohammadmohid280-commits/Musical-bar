@@ -1,0 +1,1243 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musical Bar 🎵 - Studio Quality</title>
+
+<style>
+:root {
+  --bg-gradient: linear-gradient(180deg, #06183b, #0b55ad);
+  --card-bg: #ffffff15;
+  --card-border: #ffffff22;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --nav-bg: #06142f;
+  --accent-color: #ffd740;
+  --btn-bg: #e53935;
+  --white-key-bg: linear-gradient(#ffffff, #d9d9d9);
+  --piano-body: #111111;
+}
+
+body.dark-theme {
+  --bg-gradient: linear-gradient(180deg, #090a0f, #121824);
+  --card-bg: #ffffff0d;
+  --card-border: #ffffff18;
+  --text-primary: #f0f0f0;
+  --text-secondary: rgba(240, 240, 240, 0.65);
+  --nav-bg: #040812;
+  --piano-body: #050505;
+}
+
+body.light-theme {
+  --bg-gradient: linear-gradient(180deg, #e0f2fe, #bae6fd);
+  --card-bg: #ffffff90;
+  --card-border: #00000015;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --nav-bg: #ffffff;
+  --accent-color: #d97706;
+  --btn-bg: #dc2626;
+  --white-key-bg: linear-gradient(#ffffff, #f1f5f9);
+  --piano-body: #334155;
+}
+
+*{
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body{
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding-bottom: 90px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+button, select, input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  text-align: center;
+  padding: 14px 10px 8px;
+}
+
+.logo {
+  font-size: 40px;
+  line-height: 1;
+}
+
+h1 {
+  margin: 4px 0 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 12px;
+  opacity: .8;
+}
+
+.page {
+  display: none;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* HOME & DASHBOARD */
+.welcome {
+  width: 92%;
+  max-width: 520px;
+  margin: 10px auto;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.welcome h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.welcome p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.stats-container {
+  width: 92%;
+  max-width: 520px;
+  margin: 12px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+}
+
+.stat-card .val {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.stat-card .lbl {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(150, 150, 150, 0.2);
+  border-radius: 4px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #10b981;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
+}
+
+.home-grid {
+  width: 92%;
+  max-width: 520px;
+  margin: 14px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.home-card {
+  min-height: 125px;
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  color: var(--text-primary);
+  padding: 16px 12px;
+  background: var(--card-bg);
+  text-align: center;
+  transition: transform 0.15s ease, background 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-card:active {
+  transform: scale(0.96);
+}
+
+.home-card .icon {
+  font-size: 38px;
+  margin-bottom: 6px;
+}
+
+.home-card strong {
+  display: block;
+  font-size: 15px;
+}
+
+.home-card span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* COMMON LAYOUT */
+.top-actions {
+  width: 92%;
+  max-width: 520px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+
+select, .control-btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+select {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.control-btn {
+  background: var(--btn-bg);
+  color: white;
+}
+
+.learn-panel {
+  width: 92%;
+  max-width: 520px;
+  margin: 10px auto;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.feature-box {
+  width: 92%;
+  max-width: 520px;
+  margin: 12px auto;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.action-btn {
+  background: var(--btn-bg);
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* PIANO */
+.piano-box {
+  width: 94%;
+  max-width: 520px;
+  margin: 10px auto;
+}
+
+.piano {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  background: var(--piano-body);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  border: 3px solid #222;
+}
+
+.white-keys {
+  display: flex;
+  height: 100%;
+}
+
+.white {
+  position: relative;
+  flex: 1;
+  background: var(--white-key-bg);
+  border-right: 1px solid #777;
+  color: #111;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  user-select: none;
+  transition: background 0.05s ease;
+  border-radius: 0 0 5px 5px;
+}
+
+.white:active, .white.learn-active {
+  background: #ffd740 !important;
+  color: #000;
+  transform: translateY(2px);
+}
+
+.black {
+  position: absolute;
+  top: 0;
+  width: 6.2%;
+  height: 132px;
+  background: linear-gradient(180deg, #333 0%, #000 100%);
+  border-radius: 0 0 6px 6px;
+  z-index: 5;
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+  font-size: 8px;
+  font-weight: bold;
+  user-select: none;
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.5);
+  transition: background 0.05s ease;
+}
+
+.black:active, .black.learn-active {
+  background: #ffd740 !important;
+  color: #111;
+}
+
+.b15{left:4.2%}
+.b16{left:11.3%}
+.b17{left:25.6%}
+.b18{left:32.7%}
+.b19{left:39.8%}
+.b20{left:54.1%}
+.b21{left:61.2%}
+.b22{left:75.5%}
+.b23{left:82.6%}
+.b24{left:89.7%}
+
+/* GUITAR */
+.guitar-box {
+  width: 94%;
+  max-width: 520px;
+  margin: 12px auto;
+  padding: 16px 12px 20px;
+  background: linear-gradient(135deg, #2b0e05, #6e3312, #3c1407);
+  border-radius: 28px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.guitar-head {
+  width: 45%;
+  height: 52px;
+  margin: auto;
+  background: #210a04;
+  border-radius: 16px 16px 8px 8px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 4px solid #110401;
+}
+
+.tuner {
+  width: 10px;
+  height: 22px;
+  background: #d4af37;
+  border-radius: 4px;
+  box-shadow: inset 0 0 4px #000;
+}
+
+.guitar-neck {
+  position: relative;
+  width: 84%;
+  height: 310px;
+  margin: auto;
+  background: linear-gradient(90deg, #2c1107, #723a1a, #2c1107);
+  border: 5px solid #230b04;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+}
+
+.fret {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #a89278, #f3e5d8, #a89278);
+  z-index: 2;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.f1{top:16%}
+.f2{top:32%}
+.f3{top:48%}
+.f4{top:64%}
+.f5{top:80%}
+
+.strings {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-around;
+  z-index: 3;
+}
+
+.string {
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(90deg, #ffffff, #a3a3a3, #ffffff);
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.08s ease;
+  box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+}
+
+.string:active, .string.learn-active {
+  background: #ffd740 !important;
+  transform: scaleX(2.5);
+}
+
+.chord-buttons {
+  width: 94%;
+  max-width: 520px;
+  margin: 12px auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.chord-btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 4px;
+  background: var(--btn-bg);
+  color: white;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* SONG CARDS */
+.song-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.song-info h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.song-info p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.song-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 8px 11px;
+  font-size: 14px;
+}
+
+.icon-btn.fav {
+  color: #ffd740;
+}
+
+/* TOOLS & SETTINGS */
+.tools-box {
+  width: 92%;
+  max-width: 520px;
+  margin: 12px auto;
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.tools-box h3 {
+  margin-top: 0;
+}
+
+.bpm-number {
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  margin: 8px 0;
+  color: var(--accent-color);
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-row span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* BOTTOM NAVIGATION MENU */
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  background: var(--nav-bg);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid var(--card-border);
+  z-index: 1000;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+  backdrop-filter: blur(15px);
+}
+
+.menu-btn {
+  background: none;
+  color: var(--text-secondary);
+  border: 0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.2s ease, transform 0.15s ease;
+  width: 20%;
+}
+
+.menu-btn.active-tab {
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.menu-icon {
+  font-size: 22px;
+  margin-bottom: 3px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🎵</div>
+  <h1>Musical Bar</h1>
+  <div class="subtitle">Studio Sound • Teach Mode • Settings</div>
+</header>
+
+<!-- HOME PAGE -->
+<section id="homePage" class="page active">
+  <div class="welcome">
+    <h2>Welcome Back! 🎼</h2>
+    <p>Track goals, play realistic instruments & master songs</p>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="val" id="streakVal">🔥 1 Day</div>
+      <div class="lbl">Practice Streak</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="goalVal">0 / 10 Mins</div>
+      <div class="lbl">Daily Practice Goal</div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="goalBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-grid">
+    <button class="home-card" onclick="openPage('teachPage')">
+      <div class="icon">🎓</div>
+      <strong>Teach Mode</strong>
+      <span>Interactive Song Lessons</span>
+    </button>
+    <button class="home-card" onclick="openPage('pianoPage')">
+      <div class="icon">🎹</div>
+      <strong>Grand Piano</strong>
+      <span>Studio Polyphonic Sound</span>
+    </button>
+    <button class="home-card" onclick="openPage('guitarPage')">
+      <div class="icon">🎸</div>
+      <strong>Acoustic Guitar</strong>
+      <span>Physical Pluck Synthesis</span>
+    </button>
+    <button class="home-card" onclick="openPage('settingsPage')">
+      <div class="icon">⚙️</div>
+      <strong>Settings</strong>
+      <span>Dark Mode & Theme Options</span>
+    </button>
+  </div>
+</section>
+
+<!-- TEACH MODE (SONG LIBRARY & LESSONS) -->
+<section id="teachPage" class="page">
+  <div class="top-actions">
+    <button class="back-btn" onclick="openPage('homePage')">← Home</button>
+    <div class="page-title">🎓 Teach Mode</div>
+  </div>
+  <div class="controls">
+    <button class="control-btn" style="background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-primary);" onclick="filterSongs('all')">All Lessons</button>
+    <button class="control-btn" style="background:#ffd740; color:#111;" onclick="filterSongs('fav')">⭐ Favorites</button>
+  </div>
+  <div class="feature-box" id="songListContainer"></div>
+</section>
+
+<!-- PIANO PAGE -->
+<section id="pianoPage" class="page">
+  <div class="top-actions">
+    <button class="back-btn" onclick="openPage('homePage')">← Home</button>
+    <div class="page-title">🎹 Grand Piano</div>
+  </div>
+  <div class="controls">
+    <select id="soundType">
+      <option value="piano">🎹 Grand Piano (Warm ADSR)</option>
+      <option value="electric">⚡ Electric Piano</option>
+      <option value="organ">🎼 Organ</option>
+      <option value="synth">🎛️ Synth</option>
+    </select>
+    <button class="control-btn" onclick="openPage('teachPage')">🎓 Select Song</button>
+  </div>
+  <div class="learn-panel" id="pianoLearnText">Free Play Mode. Choose a lesson from Teach Mode to practice step-by-step.</div>
+  <div class="piano-box">
+    <div class="piano">
+      <div class="white-keys">
+        <div class="white" data-key="1" data-note="C4">C4</div>
+        <div class="white" data-key="2" data-note="D4">D4</div>
+        <div class="white" data-key="3" data-note="E4">E4</div>
+        <div class="white" data-key="4" data-note="F4">F4</div>
+        <div class="white" data-key="5" data-note="G4">G4</div>
+        <div class="white" data-key="6" data-note="A4">A4</div>
+        <div class="white" data-key="7" data-note="B4">B4</div>
+        <div class="white" data-key="8" data-note="C5">C5</div>
+        <div class="white" data-key="9" data-note="D5">D5</div>
+        <div class="white" data-key="10" data-note="E5">E5</div>
+        <div class="white" data-key="11" data-note="F5">F5</div>
+        <div class="white" data-key="12" data-note="G5">G5</div>
+        <div class="white" data-key="13" data-note="A5">A5</div>
+        <div class="white" data-key="14" data-note="B5">B5</div>
+      </div>
+      <div class="black b15" data-key="15" data-note="C#4"></div>
+      <div class="black b16" data-key="16" data-note="D#4"></div>
+      <div class="black b17" data-key="17" data-note="F#4"></div>
+      <div class="black b18" data-key="18" data-note="G#4"></div>
+      <div class="black b19" data-key="19" data-note="A#4"></div>
+      <div class="black b20" data-key="20" data-note="C#5"></div>
+      <div class="black b21" data-key="21" data-note="D#5"></div>
+      <div class="black b22" data-key="22" data-note="F#5"></div>
+      <div class="black b23" data-key="23" data-note="G#5"></div>
+      <div class="black b24" data-key="24" data-note="A#5"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GUITAR PAGE -->
+<section id="guitarPage" class="page">
+  <div class="top-actions">
+    <button class="back-btn" onclick="openPage('homePage')">← Home</button>
+    <div class="page-title">🎸 Acoustic Guitar</div>
+  </div>
+  <div class="learn-panel" id="guitarLearnText">Pluck individual strings or trigger chords below.</div>
+  <div class="guitar-box">
+    <div class="guitar-head">
+      <span class="tuner"></span><span class="tuner"></span><span class="tuner"></span>
+    </div>
+    <div class="guitar-neck">
+      <div class="fret f1"></div><div class="fret f2"></div><div class="fret f3"></div>
+      <div class="strings">
+        <div class="string" data-string="1" data-note="E4"></div>
+        <div class="string" data-string="2" data-note="B3"></div>
+        <div class="string" data-string="3" data-note="G3"></div>
+        <div class="string" data-string="4" data-note="D3"></div>
+        <div class="string" data-string="5" data-note="A2"></div>
+        <div class="string" data-string="6" data-note="E2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="chord-buttons">
+    <button class="chord-btn" onclick="playChord('C')">C</button>
+    <button class="chord-btn" onclick="playChord('D')">D</button>
+    <button class="chord-btn" onclick="playChord('E')">E</button>
+    <button class="chord-btn" onclick="playChord('G')">G</button>
+    <button class="chord-btn" onclick="playChord('A')">A</button>
+  </div>
+</section>
+
+<!-- STUDIO PAGE -->
+<section id="toolsPage" class="page">
+  <div class="top-actions">
+    <button class="back-btn" onclick="openPage('homePage')">← Home</button>
+    <div class="page-title">🎙️ Studio & Recorder</div>
+  </div>
+  <div class="tools-box">
+    <h3>🥁 Metronome</h3>
+    <button class="action-btn" id="metronomeBtn" onclick="toggleMetronome()" style="width:100%;">Start Metronome</button>
+    <div class="bpm-number" id="bpmNumber">90 BPM</div>
+    <input type="range" id="bpmRange" min="40" max="200" value="90" style="width:100%;">
+  </div>
+
+  <div class="tools-box">
+    <h3>🔴 Studio Audio Recorder</h3>
+    <p style="font-size:12px; color:var(--text-secondary);">Record your performance live through device microphone.</p>
+    <button class="action-btn" id="recordBtn" onclick="toggleRecording()" style="width:100%; background:#059669;">Start Recording</button>
+    <audio id="audioPlayback" controls style="width:100%; margin-top:12px; display:none;"></audio>
+  </div>
+</section>
+
+<!-- SETTINGS PAGE -->
+<section id="settingsPage" class="page">
+  <div class="top-actions">
+    <button class="back-btn" onclick="openPage('homePage')">← Home</button>
+    <div class="page-title">⚙️ Settings</div>
+  </div>
+
+  <div class="tools-box">
+    <h3>🎨 Appearance & Theme</h3>
+    <div class="setting-row">
+      <span>App Theme Mode</span>
+      <select id="themeSelect" onchange="changeTheme(this.value)">
+        <option value="dark">🌙 Dark Mode</option>
+        <option value="light">☀️ Light Mode</option>
+        <option value="default">🌌 Studio Blue</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tools-box">
+    <h3>🎯 Practice Goals</h3>
+    <div class="setting-row">
+      <span>Daily Target (Minutes)</span>
+      <select id="goalSelect" onchange="changeDailyGoal(this.value)">
+        <option value="5">5 Mins</option>
+        <option value="10">10 Mins</option>
+        <option value="15">15 Mins</option>
+        <option value="30">30 Mins</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tools-box">
+    <h3>💾 Storage & Data</h3>
+    <div class="setting-row">
+      <span>Reset Streak & Progress</span>
+      <button class="action-btn" onclick="resetProgress()" style="background:#dc2626; padding:6px 12px;">Reset</button>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM NAVIGATION MENU (FEATURING TEACH MODE & SETTINGS) -->
+<div class="bottom-menu">
+  <button class="menu-btn active-tab" id="nav-homePage" onclick="openPage('homePage')">
+    <span class="menu-icon">🏠</span>Home
+  </button>
+
+  <button class="menu-btn" id="nav-teachPage" onclick="openPage('teachPage')">
+    <span class="menu-icon">🎓</span>Teach
+  </button>
+
+  <button class="menu-btn" id="nav-pianoPage" onclick="openPage('pianoPage')">
+    <span class="menu-icon">🎹</span>Piano
+  </button>
+
+  <button class="menu-btn" id="nav-guitarPage" onclick="openPage('guitarPage')">
+    <span class="menu-icon">🎸</span>Guitar
+  </button>
+
+  <button class="menu-btn" id="nav-settingsPage" onclick="openPage('settingsPage')">
+    <span class="menu-icon">⚙️</span>Settings
+  </button>
+</div>
+
+<script>
+/* USER DATA & STORAGE */
+let userData = {
+  streak: 1,
+  lastActiveDate: new Date().toDateString(),
+  practiceTimeSec: 0,
+  dailyGoalMins: 10,
+  theme: "default",
+  favorites: []
+};
+
+function loadUserData() {
+  const saved = localStorage.getItem("musical_bar_data_v2");
+  if (saved) userData = JSON.parse(saved);
+
+  const today = new Date().toDateString();
+  if (userData.lastActiveDate !== today) {
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    userData.streak = (userData.lastActiveDate === yesterday) ? userData.streak + 1 : 1;
+    userData.lastActiveDate = today;
+    userData.practiceTimeSec = 0;
+    saveUserData();
+  }
+
+  document.getElementById("themeSelect").value = userData.theme || "default";
+  document.getElementById("goalSelect").value = userData.dailyGoalMins || 10;
+  applyTheme(userData.theme);
+  updateDashboardUI();
+}
+
+function saveUserData() {
+  localStorage.setItem("musical_bar_data_v2", JSON.stringify(userData));
+  updateDashboardUI();
+}
+
+function updateDashboardUI() {
+  document.getElementById("streakVal").innerText = `🔥 ${userData.streak} Day${userData.streak > 1 ? 's' : ''}`;
+  const minsPlayed = Math.floor(userData.practiceTimeSec / 60);
+  document.getElementById("goalVal").innerText = `${minsPlayed} / ${userData.dailyGoalMins} Mins`;
+  const percent = Math.min(100, (minsPlayed / userData.dailyGoalMins) * 100);
+  document.getElementById("goalBar").style.width = percent + "%";
+}
+
+setInterval(() => {
+  userData.practiceTimeSec += 1;
+  if (userData.practiceTimeSec % 5 === 0) saveUserData();
+}, 1000);
+
+/* THEME & SETTINGS CONTROLS */
+function changeTheme(theme) {
+  userData.theme = theme;
+  applyTheme(theme);
+  saveUserData();
+}
+
+function applyTheme(theme) {
+  document.body.classList.remove("dark-theme", "light-theme");
+  if (theme === "dark") document.body.classList.add("dark-theme");
+  if (theme === "light") document.body.classList.add("light-theme");
+}
+
+function changeDailyGoal(mins) {
+  userData.dailyGoalMins = Number(mins);
+  saveUserData();
+}
+
+function resetProgress() {
+  if (confirm("Reset all practice progress and streaks?")) {
+    userData.streak = 1;
+    userData.practiceTimeSec = 0;
+    saveUserData();
+  }
+}
+
+/* REALISTIC HIGH-QUALITY AUDIO SYNTHESIS */
+let audioCtx;
+const freqs = {
+  "C4": 261.63, "C#4": 277.18, "D4": 293.66, "D#4": 311.13, "E4": 329.63,
+  "F4": 349.23, "F#4": 369.99, "G4": 392.00, "G#4": 415.30, "A4": 440.00,
+  "A#4": 466.16, "B4": 493.88, "C5": 523.25, "C#5": 554.37, "D5": 587.33,
+  "D#5": 622.25, "E5": 659.25, "F5": 698.46, "F#5": 739.99, "G5": 783.99,
+  "G#5": 830.61, "A5": 880.00, "A#5": 932.33, "B5": 987.77,
+  "B3": 246.94, "G3": 196.00, "D3": 146.83, "A2": 110.00, "E2": 82.41
+};
+
+function initAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === "suspended") audioCtx.resume();
+}
+
+/* GRAND PIANO SYNTHESIS (Multi-Oscillator + Dynamic Filter ADSR) */
+function playPianoSound(freq) {
+  const now = audioCtx.currentTime;
+  const osc1 = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  const filter = audioCtx.createBiquadFilter();
+
+  osc1.type = "sine";
+  osc2.type = "triangle";
+
+  osc1.frequency.setValueAtTime(freq, now);
+  osc2.frequency.setValueAtTime(freq * 2, now); // Warm harmonic overtone
+
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(freq * 4, now);
+  filter.frequency.exponentialRampToValueAtTime(freq * 1.2, now + 1.2);
+
+  gain.gain.setValueAtTime(0.001, now);
+  gain.gain.linearRampToValueAtTime(0.65, now + 0.015);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.5);
+
+  osc1.connect(filter);
+  osc2.connect(filter);
+  filter.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc1.start(now);
+  osc2.start(now);
+  osc1.stop(now + 2.6);
+  osc2.stop(now + 2.6);
+}
+
+/* ACOUSTIC GUITAR SYNTHESIS (Karplus-Strong Physical String Modeling) */
+function playGuitarSound(freq) {
+  const sampleRate = audioCtx.sampleRate;
+  const period = Math.round(sampleRate / freq);
+  const buffer = audioCtx.createBuffer(1, period, sampleRate);
+  const data = buffer.getChannelData(0);
+
+  // Initial Pluck Noise Wave
+  for (let i = 0; i < period; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+
+  const noise = audioCtx.createBufferSource();
+  noise.buffer = buffer;
+
+  const delay = audioCtx.createDelay();
+  delay.delayTime.value = 1 / freq;
+
+  const feedback = audioCtx.createGain();
+  feedback.gain.value = 0.985; // String resonance damping factor
+
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.value = freq * 3.2;
+
+  noise.connect(delay);
+  delay.connect(filter);
+  filter.connect(feedback);
+  feedback.connect(delay);
+  delay.connect(audioCtx.destination);
+
+  noise.start();
+  noise.stop(audioCtx.currentTime + period / sampleRate);
+}
+
+function playNote(note, type="piano") {
+  initAudio();
+  const freq = freqs[note] || 440;
+
+  if (type === "guitar") {
+    playGuitarSound(freq);
+  } else if (type === "piano") {
+    playPianoSound(freq);
+  } else {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type === "organ" ? "square" : "sawtooth";
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 1.25);
+  }
+}
+
+/* TEACH MODE & LESSON LIBRARY */
+const songLibrary = [
+  { id: "s1", title: "Happy Birthday", level: "Easy", notes: ["C4", "C4", "D4", "C4", "F4", "E4"] },
+  { id: "s2", title: "Twinkle Twinkle Little Star", level: "Easy", notes: ["C4", "C4", "G4", "G4", "A4", "A4", "G4", "F4", "F4", "E4", "E4", "D4", "D4", "C4"] },
+  { id: "s3", title: "Jingle Bells", level: "Medium", notes: ["E4", "E4", "E4", "E4", "E4", "E4", "E4", "G4", "C4", "D4", "E4"] },
+  { id: "s4", title: "Fur Elise (Intro)", level: "Hard", notes: ["E5", "D#5", "E5", "D#5", "E5", "B4", "D5", "C5", "A4"] }
+];
+
+let activeSong = null;
+let activeSongIndex = 0;
+
+function renderSongLibrary(filter = "all") {
+  const container = document.getElementById("songListContainer");
+  container.innerHTML = "";
+
+  const filtered = filter === "fav" 
+    ? songLibrary.filter(s => userData.favorites.includes(s.id))
+    : songLibrary;
+
+  if (filtered.length === 0) {
+    container.innerHTML = "<p style='text-align:center; opacity:0.7;'>No songs found.</p>";
+    return;
+  }
+
+  filtered.forEach(song => {
+    const isFav = userData.favorites.includes(song.id);
+    const card = document.createElement("div");
+    card.className = "song-card";
+    card.innerHTML = `
+      <div class="song-info">
+        <h4>${song.title}</h4>
+        <p>Level: ${song.level} • ${song.notes.length} Notes</p>
+      </div>
+      <div class="song-actions">
+        <button class="icon-btn ${isFav ? 'fav' : ''}" onclick="toggleFav('${song.id}')">⭐</button>
+        <button class="icon-btn" onclick="playSongDemo('${song.id}')">▶️</button>
+        <button class="action-btn" onclick="startGuidedSong('${song.id}')">🎓 Teach</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function toggleFav(id) {
+  if (userData.favorites.includes(id)) {
+    userData.favorites = userData.favorites.filter(item => item !== id);
+  } else {
+    userData.favorites.push(id);
+  }
+  saveUserData();
+  renderSongLibrary();
+}
+
+function playSongDemo(id) {
+  const song = songLibrary.find(s => s.id === id);
+  if (!song) return;
+  song.notes.forEach((note, index) => {
+    setTimeout(() => {
+      playNote(note, "piano");
+      highlightKey(note);
+    }, index * 480);
+  });
+}
+
+function startGuidedSong(id) {
+  activeSong = songLibrary.find(s => s.id === id);
+  activeSongIndex = 0;
+  openPage("pianoPage");
+  updateGuidedInstruction();
+}
+
+function updateGuidedInstruction() {
+  if (!activeSong) return;
+  if (activeSongIndex < activeSong.notes.length) {
+    const currentNote = activeSong.notes[activeSongIndex];
+    document.getElementById("pianoLearnText").innerText = `🎓 Lesson: ${activeSong.title} — Play Key: ${currentNote} (${activeSongIndex + 1}/${activeSong.notes.length})`;
+    highlightKey(currentNote);
+  } else {
+    document.getElementById("pianoLearnText").innerText = `🎉 Lesson Mastered! Excellent job!`;
+    activeSong = null;
+  }
+}
+
+function highlightKey(note) {
+  document.querySelectorAll(".white, .black").forEach(k => k.classList.remove("learn-active"));
+  const keyEl = document.querySelector(`[data-note="${note}"]`);
+  if (keyEl) keyEl.classList.add("learn-active");
+}
+
+/* EVENT LISTENERS */
+document.querySelectorAll("#pianoPage .white, #pianoPage .black").forEach(key => {
+  key.addEventListener("click", () => {
+    const note = key.dataset.note;
+    playNote(note, document.getElementById("soundType").value);
+
+    if (activeSong) {
+      if (note === activeSong.notes[activeSongIndex]) {
+        activeSongIndex++;
+        updateGuidedInstruction();
+      }
+    }
+  });
+});
+
+document.querySelectorAll("#guitarPage .string").forEach(string => {
+  string.addEventListener("click", () => {
+    playNote(string.dataset.note, "guitar");
+  });
+});
+
+function playChord(name) {
+  const chords = {
+    C: ["C4", "E4", "G4"], D: ["D4", "F#4", "A4"], E: ["E4", "G#4", "B4"],
+    G: ["G4", "B4", "D5"], A: ["A4", "C5", "E5"]
+  };
+  chords[name].forEach((note, i) => {
+    setTimeout(() => playNote(note, "guitar"), i * 60);
+  });
+}
+
+/* PAGE & TAB NAVIGATION */
+function openPage(id) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".menu-btn").forEach(btn => btn.classList.remove("active-tab"));
+  const activeNav = document.getElementById(`nav-${id}`);
+  if (activeNav) activeNav.classList.add("active-tab");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function filterSongs(type) {
+  renderSongLibrary(type);
+}
+
+/* METRONOME */
+let metronomeInterval = null;
+let isMetronomeRunning = false;
+
+function toggleMetronome() {
+  initAudio();
+  if (isMetronomeRunning) {
+    clearInterval(metronomeInterval);
+    document.getElementById("metronomeBtn").innerText = "Start Metronome";
+    isMetronomeRunning = false;
+  } else {
+    const bpm = Number(document.getElementById("bpmRange").value);
+    metronomeInterval = setInterval(playClick, (60 / bpm) * 1000);
+    document.getElementById("metronomeBtn").innerText = "Stop Metronome";
+    isMetronomeRunning = true;
+  }
+}
+
+function playClick() {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.frequency.value = 1000;
+  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.05);
+}
+
+document.getElementById("bpmRange").addEventListener("input", function() {
+  document.getElementById("bpmNumber").innerText = `${this.value} BPM`;
+  if (isMetronomeRunning) {
+    toggleMetronome();
+    toggleMetronome();
+  }
+});
+
+/* STUDIO AUDIO RECORDER */
+let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+
+async function toggleRecording() {
+  const btn = document.getElementById("recordBtn");
+  const playback = document.getElementById("audioPlayback");
+
+  if (!isRecording) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+        playback.src = URL.createObjectURL(audioBlob);
+        playback.style.display = "block";
+      };
+
+      mediaRecorder.start();
+      isRecording = true;
+      btn.innerText = "⏹️ Stop Recording";
+      btn.style.background = "#dc2626";
+    } catch (err) {
+      alert("Microphone permission required to record audio.");
+    }
+  } else {
+    mediaRecorder.stop();
+    isRecording = false;
+    btn.innerText = "Start Recording";
+    btn.style.background = "#059669";
+  }
+}
+
+/* INITIALIZATION */
+window.onload = () => {
+  loadUserData();
+  renderSongLibrary();
+};
+</script>
+</body>
+</html>
