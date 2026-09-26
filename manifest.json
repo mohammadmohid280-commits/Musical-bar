@@ -1,0 +1,22 @@
+{
+  "name": "Musical Bar",
+  "short_name": "MusicalBar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#6C5CE7",
+  "icons": [
+    {
+      "src": "/28004b8c-94b5-4e53-8dda-12b92cf2a788.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/28004b8c-94b5-4e53-8dda-12b92cf2a788.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ]
+}
