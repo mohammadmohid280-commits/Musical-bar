@@ -1,1 +1,0 @@
-[{      "relation": ["delegate_permission/common.handle_all_urls"],      "target": {        "namespace": "android_app",        "package_name": "app.vercel.musical_bar.twa",        "sha256_cert_fingerprints": ["CD:C7:24:E9:7D:F9:C6:7D:BC:3A:AD:23:53:45:27:CD:79:3C:97:D3:16:64:49:FF:0D:78:A8:C4:4F:26:41:FB"]      }    }]
